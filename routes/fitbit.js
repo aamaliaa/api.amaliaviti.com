@@ -1,5 +1,6 @@
 var	OAuth = require('oauth').OAuth,
 	config = require('../config/app'),
+	db = require('../db'),
 	oauth = new OAuth(
 		'https://www.fitbit.com/oauth/request_token',
 		'https://api.fitbit.com/oauth/access_token',
@@ -38,7 +39,21 @@ module.exports.access = function(req, res) {
 				req.session.oauth_access_token = oauth_access_token;
 				req.session.oauth_access_token_secret = oauth_access_token_secret;
 
-				res.redirect((req.param('action') && req.param('action') != '') ? req.param('action') : "/getActivities");
+				_get(req, res, 'https://api.fitbit.com/1/user/-/profile.json', function(err, result) {
+					if(err) res.json({error: 1});
+
+					var fitbit_provider = {
+						provider: 'fitbit',
+						user_id: result.user.encodedId,
+						oauth_access_token: req.session.oauth_access_token,
+						oauth_access_token_secret: req.session.oauth_access_token_secret
+					};
+
+					db.provider.update({ provider: 'fitbit' }, fitbit_provider, { upsert: true }, function(err, result){
+						if(err) res.json({ status: 0, error: err });
+						res.json({ status: 1, result: 'true' });
+					});
+				});
 			}
 		}
 	);
@@ -77,7 +92,14 @@ module.exports.isLoggedIn = function(req, res, next) {
 	if(req.session.oauth_access_token && req.session.oauth_access_token_secret) {
 		return next();
 	} else {
-		res.json({ status: 0, msg: 'Not logged in.' });
+		db.provider.findOne({ provider: 'fitbit' }, function(err, result){
+			if(!result) res.json({ status: 0, msg: 'Fitbit not authenticated.' });
+
+			req.session.oauth_access_token = result.oauth_access_token;
+			req.session.oauth_access_token_secret = result.oauth_access_token_secret;
+			
+			return next();
+		});
 	}
 }
 

@@ -1,6 +1,0 @@
-module.exports = {
-	fitbit: {
-		CONSUMER_KEY: 'YOUR_CONSUMER_KEY_HERE',
-		CONSUMER_SECRET: 'YOUR_CONSUMER_SECRET_HERE'
-	}
-}

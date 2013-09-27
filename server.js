@@ -18,13 +18,13 @@ app.configure(function () {
 
 // }
 
-app.get('/auth', fitbit.auth);
-app.get('/callback', fitbit.access);
+app.get('/fitbit/auth', fitbit.auth);
+app.get('/fitbit/callback', fitbit.access);
 
-app.all('*', fitbit.isLoggedIn);
-app.get('/user', fitbit.user);
-app.get('/getActivities/:date?', fitbit.getActivities);
-app.get('/getSleep/:date?', fitbit.getSleep);
+app.all('/fitbit/*', fitbit.isLoggedIn);
+app.get('/fitbit/user', fitbit.user);
+app.get('/fitbit/getActivities/:date?', fitbit.getActivities);
+app.get('/fitbit/getSleep/:date?', fitbit.getSleep);
 
 app.listen(8553);
 
