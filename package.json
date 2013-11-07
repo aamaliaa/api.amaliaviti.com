@@ -7,6 +7,7 @@
     "express": "3.x",
     "oauth": "~0.9.10",
     "later": "~1.1.3",
-    "mongoose": "~3.6.20"
+    "mongoose": "~3.6.20",
+    "moment": "~2.3.1"
   }
 }
