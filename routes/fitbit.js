@@ -83,7 +83,8 @@ var _show = function(err, result, req, res) {
 
 var lastDate = function(callback) {
 	db.sleep.findOne({}, 'date', { sort: { date: -1 } }, function(err, entry){
-		callback(moment(entry.date).utc().format('YYYY-MM-DD'));
+		// subtract 1 day bc overlapping means no lost data
+		callback(moment(entry.date).subtract('days', 1).utc().format('YYYY-MM-DD'));
 	});
 }
 
