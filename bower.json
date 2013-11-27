@@ -1,0 +1,23 @@
+{
+  "name": "api.amaliaviti.com",
+  "version": "0.0.0",
+  "homepage": "https://github.com/aamaliaa/api.amaliaviti.com",
+  "authors": [
+    "Amalia Viti <amalia.viti@gmail.com>"
+  ],
+  "description": "personal api and dashboard",
+  "main": "server.js",
+  "license": "MIT",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "d3": "~3.3.10",
+    "tipsy": "~0.1.7"
+  }
+}
