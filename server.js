@@ -15,20 +15,14 @@ app.configure(function () {
 	app.use(express.session());
 });
 
-// scheduled polling?
-// var pollingSched = later.parse.text('every 15 min');
-// var polling = later.setInterval(pollApis, pollingSched);
-
-// function pollApis(){
-
-// }
-
 app.get('/', routes.info);
 
 app.get('/fitbit/auth', auth.fitbitAuth);
 app.get('/fitbit/callback', auth.fitbitAccess);
 
 app.get('/fitbit/user', fitbit.user);
+
+app.get('/api/sleep/:date?', routes.sleep);
 
 //app.get('/fitbit/getActivities/:date?', fitbit.getActivities);
 //app.get('/fitbit/getSleep/:date?', fitbit.getSleep);
