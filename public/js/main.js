@@ -4,6 +4,7 @@ var dash = angular.module('dash', []);
 dash.controller('mainController', function mainController($scope, $http) {
 
 	$scope.sleeps = {};
+	$scope.range = '1w';
 
 	var formatSleepData = function(data) {
 		var formattedData = {};
@@ -16,18 +17,20 @@ dash.controller('mainController', function mainController($scope, $http) {
 		formattedData.data = [];
 
 		data.forEach(function(d) {
-			//if(d.efficiency) {
-				var newD = d;
-				newD.min_asleep = d.totals.min_asleep;
-				formattedData.data.push(newD);
-			//}
+			var newD = d;
+			newD.min_asleep = d.totals.min_asleep;
+			newD.min_in_bed = d.totals.min_in_bed;
+			formattedData.data.push(newD);
 		});
 
 		return formattedData;
 	}
 
-	$scope.getSleepData = function() {
-		$http.get('/api/sleep')
+	$scope.getSleepData = function(range) {
+		if(range === 'all') {
+			range = '';
+		}
+		$http.get('/api/sleep/'+range)
 			.success(function(data) {
 				$scope.sleeps = formatSleepData(data.sleep);
 			})
@@ -36,7 +39,11 @@ dash.controller('mainController', function mainController($scope, $http) {
 			});
 	}
 
-	$scope.getSleepData();
+	$scope.getSleepData($scope.range);
+
+	$scope.$watch('range', function(){
+		$scope.getSleepData($scope.range);
+	});
 
 });
 
@@ -51,7 +58,7 @@ dash.directive('barChart', function() {
 		link: function(scope, element, attrs) {
 
 			var margin = { top: 20, right: 40, bottom: 20, left: 40 },
-				width = 2000 - margin.left - margin.right,
+				width = 1170 - margin.left - margin.right,
 				height = 500 - margin.top - margin.bottom;
 
 			var svg = d3.select(element[0]).append("svg")

@@ -29,6 +29,11 @@
 		</div>
 		<h2>SLEEP</h2>
 		<div>
+			<select ng-model="range">
+				<option value="1w" selected>1 week</option>
+				<option value="1m">1 month</option>
+				<option value="all">all</option>
+			</select>
 			Showing data for {{sleeps.days}} days from {{sleeps.range}}.
 		</div>
 		<div>
