@@ -1,2 +1,25 @@
-.weekend {
-  fill: gold; }
+body {
+  background: #002b36 !important;
+  color: #fdf6e3 !important; }
+
+bar-chart g.axis {
+  stroke: #fdf6e3; }
+  bar-chart g.axis line, bar-chart g.axis path {
+    fill: none;
+    stroke-width: 3px;
+    shape-rendering: crispEdges; }
+  bar-chart g.axis .tick line {
+    stroke: none; }
+  bar-chart g.axis text {
+    font-weight: lighter;
+    font-family: monospace; }
+bar-chart rect {
+  fill: #268bd2; }
+bar-chart .weekend {
+  fill: #859900; }
+
+.tipsy {
+  width: 150px; }
+  .tipsy .tipsy-inner {
+    background: #fdf6e3;
+    color: #002b36; }

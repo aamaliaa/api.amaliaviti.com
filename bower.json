@@ -18,6 +18,7 @@
   ],
   "dependencies": {
     "d3": "~3.3.10",
-    "tipsy": "~0.1.7"
+    "tipsy": "https://github.com/jaz303/tipsy/archive/v1.0.0a.zip",
+    "moment": "~2.4.0"
   }
 }

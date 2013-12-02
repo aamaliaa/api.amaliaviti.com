@@ -16,12 +16,12 @@ dash.controller('mainController', function mainController($scope, $http) {
 		formattedData.data = [];
 
 		data.forEach(function(d) {
-			if(d.efficiency) {
+			//if(d.efficiency) {
 				var newD = d;
 				newD.min_asleep = d.totals.min_asleep;
 				formattedData.data.push(newD);
-			}
-		})
+			//}
+		});
 
 		return formattedData;
 	}
@@ -103,12 +103,27 @@ dash.directive('barChart', function() {
 					.attr("x", function(d, i) { return i * (width / data.length); })
 					.attr("y", function(d) { return y(d[scope.param]); })
 					.attr("width", width / data.length - 1)
-					.attr("height", function(d) { return height - y(d[scope.param]); })
-					.append("svg:title")
-						.text(function(d, i) { return d.date; });
+					.attr("height", function(d) { return height - y(d[scope.param]); });
+
+				$("svg rect")
+					.tipsy({
+						gravity: 's',
+						html: true,
+						title: function() {
+							var d = this.__data__;
+							if(scope.param === 'min_asleep') {
+								var hrs = Math.floor(d[scope.param] / 60);
+								var mins = d[scope.param] % 60;
+								var min_asleep = (hrs + ' hrs') + (mins ? ' ' + mins + ' mins' : '');
+								return min_asleep +'<br>'+moment(d.date).format('dddd')+'<br>'+moment(d.date).format('MM-DD-YYYY');
+							} else {
+								return d[scope.param] +'<br>'+moment(d.date).format('dddd')+'<br>'+moment(d.date).format('MM-DD-YYYY');
+							}
+						}
+					})
 
 				svg.selectAll("rect")
-					.filter(function(d) { return d.date.getDay() === 0 || d.date.getDay() === 6; })
+					.filter(function(d) { return d.date.getDay() === 5 || d.date.getDay() === 6; })
 					.classed("weekend", true);
 
 			});

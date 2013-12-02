@@ -1,4 +1,42 @@
-html
+$color-bg:		#002b36
+$color-main:	#fdf6e3
+$color-violet:	#6c71c4
+$color-yellow:	#b58900
+$color-orange:	#cb4b16
+$color-green:	#859900
+$color-blue:	#268bd2
+$color-cyan:	#2aa198
 
-.weekend
-	fill: gold
+body
+	background: $color-bg !important
+	color: $color-main !important
+
+bar-chart
+	g.axis
+		stroke: $color-main	
+
+		line, path
+			fill: none
+			stroke-width: 3px
+			shape-rendering: crispEdges
+
+		.tick
+			line
+				stroke: none
+
+		text
+			font-weight: lighter
+			font-family: monospace
+
+	rect
+		fill: $color-blue
+
+	.weekend
+		fill: $color-green
+
+.tipsy
+	width: 150px
+
+	.tipsy-inner
+		background: $color-main
+		color: $color-bg
