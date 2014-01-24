@@ -14,7 +14,13 @@ exports.sleep = function(req, res) {
 		fields = '-_id -log';
 
 	if(req.param('date')) {
-		filter = { date: req.param('date') };
+		if(req.param('date') == '1w') {
+			filter = { date: { $gte: moment().subtract('days', 7).calendar(), $lte: moment().format('L') }};
+		} else if(req.param('date') == '1m') {
+			filter = { date: { $gte: moment().subtract('months', 1).calendar(), $lte: moment().format('L') }};
+		} else {
+			filter = { date: req.param('date') };
+		}
 		fields = '-_id';
 	}
 
