@@ -5,6 +5,8 @@ var express = require('express'),
 	later = require('later'),
 	app = express();
 
+Q = require('q');
+
 var env = process.env.NODE_ENV || 'dev',
 	port = process.env.PORT || 8553;
 
@@ -28,9 +30,6 @@ app.get('/fitbit/user', fitbit.user);
 
 app.get('/api/providers', routes.info);
 app.get('/api/sleep/:date?', routes.sleep);
-
-//app.get('/fitbit/getActivities/:date?', fitbit.getActivities);
-//app.get('/fitbit/getSleep/:date?', fitbit.getSleep);
 
 // CRONS @todo these should only run if provider is set
 var sleepSched = later.parse.text('every 2 hours');
