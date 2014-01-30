@@ -1,15 +1,3 @@
-// var	OAuth = require('oauth').OAuth,
-// 	db = require('../db'),
-// 	oauth = new OAuth(
-// 		'https://www.fitbit.com/oauth/request_token',
-// 		'https://api.fitbit.com/oauth/access_token',
-// 		process.env.FITBIT_CONSUMER_KEY,
-// 		process.env.FITBIT_CONSUMER_SECRET,
-// 		'1.0',
-// 		null,
-// 		'HMAC-SHA1'
-// 	);
-
 var fitbit = require('../services/fitbit/auth'),
 	db = require('../db'),
 	moment = require('moment');
@@ -21,41 +9,6 @@ exports.user = function(req, res) {
 		});
 	});
 };
-
-// exports.getActivities = function(req, res) {
-// 	// check for date param otherwise set date for today (i.e. yyyy-mm-dd)
-// 	var date = req.param('date') ? req.param('date') : yyyymmdd(new Date());
-
-// 	_get(req, res, 'https://api.fitbit.com/1/user/-/activities/date/' + date + '.json', function(err, result){
-// 		result.date = date;
-// 		_show(err, result, req, res);
-// 	});
-// }
-
-// exports.getSleep = function(req, res) {
-// 	// check for date param otherwise set date for today (i.e. yyyy-mm-dd)
-// 	var date = req.param('date') ? req.param('date') : yyyymmdd(new Date());
-
-// 	_get(req, res, 'https://api.fitbit.com/1/user/-/sleep/date/' + date + '.json', function(err, result){
-// 		result.date = date;
-// 		_show(err, result, req, res);
-// 	});
-// };
-
-// exports.isLoggedIn = function(req, res, next) {
-// 	if(req.session.token && req.session.token_secret) {
-// 		return next();
-// 	} else {
-// 		db.provider.findOne({ provider: 'fitbit' }, function(err, result){
-// 			if(!result) res.json({ status: 0, msg: 'Fitbit not authenticated.' });
-
-// 			req.session.token = result.token;
-// 			req.session.token_secret = result.token_secret;
-			
-// 			return next();
-// 		});
-// 	}
-// }
 
 exports.populate = function(req, res) {
 
